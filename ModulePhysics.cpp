@@ -2,6 +2,9 @@
 #include "Application.h"
 #include "ModulePhysics.h"
 #include "math.h"
+#include <time.h> 
+#include <stdio.h>
+#include <stdlib.h>
 
 // TODO 1: Include Box 2 header and library
 #include "Box2D/Box2D/Box2D.h"
@@ -32,16 +35,16 @@ bool ModulePhysics::Start()
 	// - You need to send it a default gravity
 	// - You need init the world in the constructor
 	// - Remember to destroy the world after using it
-	world = new b2World(b2Vec2 (0.0f, -10.0f));
+	world = new b2World(b2Vec2 (0.0f, 20.0f));
 
 	// TODO 4: Create a a big static circle as "ground"
-	b2BodyDef groundBodyDef;
-	groundBodyDef.position.Set(0.0f, -10.0f);
-
+	groundBodyDef.type = b2_staticBody;
+	groundBodyDef.position.Set(10.0f, 8.0f);
 	groundBody = world->CreateBody(&groundBodyDef);
-	b2PolygonShape groundBox; 
+
+	circle.m_radius = 4.0f;
 	groundBox.SetAsBox(50.0f, 10.0f);
-	groundBody->CreateFixture(&groundBox, 0.0f);
+	groundBody->CreateFixture(&circle, 0.0f);
 
 	return true;
 }
@@ -50,9 +53,9 @@ bool ModulePhysics::Start()
 update_status ModulePhysics::PreUpdate()
 {
 	// TODO 3: Update the simulation ("step" the world)
-	float32 timeStep = 1.0f / 60.0f;
-	int32 velocityIterations = 8;
-	int32 positionIterations = 3;
+	
+	world->Step(timeStep, velocityIterations, positionIterations);
+
 	return UPDATE_CONTINUE;
 }
 
@@ -61,6 +64,17 @@ update_status ModulePhysics::PostUpdate()
 {
 	// TODO 5: On space bar press, create a circle on mouse position
 	// - You need to transform the position / radius
+
+	if (App->input->GetKey(SDL_SCANCODE_SPACE)) {
+		tinyCircles.type = b2_dynamicBody;
+		tinyCircles.position.Set(PIXEL_TO_METER(App->input->GetMouseX()), PIXEL_TO_METER(App->input->GetMouseY()));
+		groundBody = world->CreateBody(&tinyCircles);
+
+		srand(time(NULL));
+
+		circle.m_radius = rand()%3;
+		groundBody->CreateFixture(&circle, 0.0f);
+	}
 
 	if(App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
 		debug = !debug;
