@@ -20,6 +20,16 @@ class b2Body;
 // Then make your circle creation function to return a pointer to that class
 
 
+class fuckIDontKnow
+{
+public:
+	void BodyPosition();
+private:
+	b2Body *pointer;
+	float posX;
+	float posY;
+};
+
 class ModulePhysics : public Module
 {
 public:
@@ -32,6 +42,9 @@ public:
 	bool CleanUp();
 
 	// TODO 4: Move body creation to 3 functions to create circles, rectangles and chains
+	void CreateCircle();
+	void CreateRect();
+	void CreateChain();
 
 private:
 
