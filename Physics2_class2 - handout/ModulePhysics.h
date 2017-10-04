@@ -23,11 +23,13 @@ class b2Body;
 class fuckIDontKnow
 {
 public:
+	fuckIDontKnow();
+	~fuckIDontKnow();
+
 	void BodyPosition();
 private:
-	b2Body *pointer;
-	float posX;
-	float posY;
+	b2Body *body;
+	
 };
 
 class ModulePhysics : public Module

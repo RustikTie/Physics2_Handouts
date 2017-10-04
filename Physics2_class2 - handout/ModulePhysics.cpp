@@ -269,6 +269,8 @@ void ModulePhysics::CreateChain(){
 	fixture.density = 1.0f;
 }
 
-void ModulePhysics::BodyPosition() {
+fuckIDontKnow::fuckIDontKnow(){}
+fuckIDontKnow::~fuckIDontKnow(){}
+void fuckIDontKnow::BodyPosition() {
 
 }
