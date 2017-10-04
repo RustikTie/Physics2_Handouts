@@ -5,7 +5,7 @@
 #include "ModulePhysics.h"
 #include "p2Point.h"
 #include "math.h"
-
+#include "b2Distance.h"
 #ifdef _DEBUG
 #pragma comment( lib, "Box2D/libx86/Debug/Box2D.lib" )
 #else
@@ -259,7 +259,22 @@ bool PhysBody::Contains(int x, int y) const
 {
 	// TODO 1: Write the code to return true in case the point
 	// is inside ANY of the shapes contained by this body
+	int _x = PIXEL_TO_METERS(x);
+	int _y = PIXEL_TO_METERS(y);
 
+	b2Vec2 vec(_x, _y);
+	//b2Transform transform;
+	//transform.SetIdentity();
+	body->GetTransform();
+	b2Fixture* fixture = body->GetFixtureList();
+	while (fixture != NULL) {
+		if (fixture->TestPoint(vec)) {
+			return true;
+
+		}
+		fixture = fixture->GetNext();
+	}
+	
 	return false;
 }
 
