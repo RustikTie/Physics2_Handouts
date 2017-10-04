@@ -259,8 +259,8 @@ bool PhysBody::Contains(int x, int y) const
 {
 	// TODO 1: Write the code to return true in case the point
 	// is inside ANY of the shapes contained by this body
-	int _x = PIXEL_TO_METERS(x);
-	int _y = PIXEL_TO_METERS(y);
+	float _x = PIXEL_TO_METERS(x);
+	float _y = PIXEL_TO_METERS(y);
 
 	b2Vec2 vec(_x, _y);
 	//b2Transform transform;

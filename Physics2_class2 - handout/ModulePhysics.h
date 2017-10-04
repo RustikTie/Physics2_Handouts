@@ -19,16 +19,16 @@ class b2Body;
 // then write the implementation in the .cpp
 // Then make your circle creation function to return a pointer to that class
 
-
 class fuckIDontKnow
 {
 public:
-	fuckIDontKnow();
+	fuckIDontKnow(b2Body *body);
 	~fuckIDontKnow();
 
 	void BodyPosition();
+
 private:
-	b2Body *body;
+	b2Body* _body;
 	
 };
 
@@ -44,12 +44,19 @@ public:
 	bool CleanUp();
 
 	// TODO 4: Move body creation to 3 functions to create circles, rectangles and chains
-	void CreateCircle();
+	fuckIDontKnow* CreateCircle();
 	void CreateRect();
 	void CreateChain();
 
-private:
+	b2DynamicTree RectArray;
+	b2DynamicTree CircleArray;
+	b2DynamicTree ChainArray;
+	
 
+private:
+	
 	bool debug;
 	b2World* world;
+
+
 };

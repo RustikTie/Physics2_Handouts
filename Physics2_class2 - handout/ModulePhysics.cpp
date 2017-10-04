@@ -159,7 +159,7 @@ bool ModulePhysics::CleanUp()
 	return true;
 }
 
-void ModulePhysics::CreateCircle() {
+fuckIDontKnow* ModulePhysics::CreateCircle() {
 	b2BodyDef body;
 	body.type = b2_dynamicBody;
 	float radius = PIXEL_TO_METERS(25);
@@ -173,6 +173,12 @@ void ModulePhysics::CreateCircle() {
 	fixture.shape = &shape;
 
 	b->CreateFixture(&fixture);
+	fuckIDontKnow* _body = new fuckIDontKnow(b);
+
+	
+	
+	return _body;
+
 }
 void ModulePhysics::CreateRect(){
 	b2BodyDef body;
@@ -269,8 +275,12 @@ void ModulePhysics::CreateChain(){
 	fixture.density = 1.0f;
 }
 
-fuckIDontKnow::fuckIDontKnow(){}
+fuckIDontKnow::fuckIDontKnow(b2Body *body){
+	_body = body;
+}
+
 fuckIDontKnow::~fuckIDontKnow(){}
+
 void fuckIDontKnow::BodyPosition() {
 
 }
