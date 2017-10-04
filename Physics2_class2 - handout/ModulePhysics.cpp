@@ -175,7 +175,7 @@ fuckIDontKnow* ModulePhysics::CreateCircle() {
 	b->CreateFixture(&fixture);
 	fuckIDontKnow* _body = new fuckIDontKnow(b);
 
-	
+	if(CircleArray.)
 	
 	return _body;
 
