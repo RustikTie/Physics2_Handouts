@@ -194,6 +194,11 @@ update_status ModulePhysics::PostUpdate()
 	if(!debug)
 		return UPDATE_CONTINUE;
 
+	b2Body* bodyFound = nullptr;
+	b2Vec2 mousePos;
+	mousePos.x = PIXEL_TO_METERS(App->input->GetMouseX());
+	mousePos.y = PIXEL_TO_METERS(App->input->GetMouseY());
+
 	// Bonus code: this will iterate all objects in the world and draw the circles
 	// You need to provide your own macro to translate meters to pixels
 	for(b2Body* b = world->GetBodyList(); b; b = b->GetNext())
@@ -264,8 +269,12 @@ update_status ModulePhysics::PostUpdate()
 				break;
 			}
 
-			// TODO 1: If mouse button 1 is pressed ...
-			// App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_DOWN
+			if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_DOWN)				// TODO 1: If mouse button 1 is pressed ...
+			{
+				if (f->TestPoint(mousePos) == true)
+					bodyFound = b;
+			}
+
 			// test if the current body contains mouse position
 		}
 	}
@@ -274,7 +283,19 @@ update_status ModulePhysics::PostUpdate()
 	// so we can pull it around
 	// TODO 2: If a body was selected, create a mouse joint
 	// using mouse_joint class property
+	if (bodyFound != nullptr)
+	{
+		LOG("Creating Joint");
+		b2MouseJointDef def;
+		def.bodyA = ground;
+		def.bodyB = bodyFound;
+		def.target = mousePos;
+		def.dampingRatio = 0.5f;
+		def.frequencyHz = 2.0f;
+		def.maxForce = 100.0f*bodyFound->GetMass();
 
+		mouse_joint = (b2MouseJoint*)world->CreateJoint(&def);
+	}
 
 	// TODO 3: If the player keeps pressing the mouse button, update
 	// target position and draw a red line between both anchor points
