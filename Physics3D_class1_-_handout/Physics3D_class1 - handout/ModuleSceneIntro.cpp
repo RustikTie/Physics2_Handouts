@@ -2,6 +2,7 @@
 #include "Application.h"
 #include "ModuleSceneIntro.h"
 #include "Primitive.h"
+#include "ModuleCamera3D.h"
 
 ModuleSceneIntro::ModuleSceneIntro(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -19,6 +20,8 @@ bool ModuleSceneIntro::Start()
 	// TODO 2: Place the camera one unit up in Y and one unit to the right
 	// experiment with different camera placements, then use LookAt()
 	// to make it look at the center
+	App->camera->Position = {1, 1, 4};
+	App->camera->LookAt({ 0,0,0 });
 
 	return ret;
 }
@@ -37,10 +40,30 @@ update_status ModuleSceneIntro::Update()
 	// TODO 1: Create a Plane primitive. This uses the plane formula
 	// so you have to express the normal of the plane to create 
 	// a plane centered around 0,0. Make that it draw the axis for reference
-
+	Plane plane;
+	plane.normal = {0,0,0};
+	plane.axis = true;
+	plane.Render();
 	// TODO 6: Draw a sphere of 0.5f radius around the center
 	// Draw somewhere else a cube and a cylinder in wireframe
+	Sphere sphere;
+	sphere.radius = 0.5f;
+	sphere.SetPos(0, 0, 0);
+	sphere.color = Blue;
+	sphere.Render();
 
+	Cube companion;
+	companion.size = { 2,2,2 };
+	companion.SetPos(3, 1, 3);
+	companion.wire = true;
+	companion.Render();
+
+	Cylinder dildo;
+	dildo.height = 4.f;
+	dildo.radius = 0.5f;
+	dildo.SetPos(-2, 0, 0);
+	dildo.wire = true;
+	dildo.Render();
 	return UPDATE_CONTINUE;
 }
 
