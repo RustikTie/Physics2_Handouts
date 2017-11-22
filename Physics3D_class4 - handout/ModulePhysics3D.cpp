@@ -243,3 +243,8 @@ int	 DebugDrawer::getDebugMode() const
 {
 	return mode;
 }
+
+btPoint2PointConstraint ModulePhysics3D::p2pConstraint(btRigidBody& rbA, btRigidBody& rbB, const btVector3& pivotInA, const btVector3& pivotInB)
+{
+
+}

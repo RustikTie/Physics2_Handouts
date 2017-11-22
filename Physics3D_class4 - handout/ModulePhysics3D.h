@@ -28,6 +28,7 @@ public:
 	PhysBody3D* AddBody(const Sphere& sphere, float mass = 1.0f);
 
 	// TODO 1: Code a method that adds a point 2 point contraint between two bodies
+	btPoint2PointConstraint p2pConstraint (btRigidBody& rbA, btRigidBody& rbB, const btVector3& pivotInA, const btVector3& pivotInB);
 	// TODO 3: Code a method that adds a hinge constraint between two bodies
 
 private:
